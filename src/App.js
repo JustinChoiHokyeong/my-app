@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
 
 function App() {
   //js 코드는 함수 안에 들어가면 된다.
@@ -17,7 +17,7 @@ function App() {
   setInterval(tick, 1000);
 
   //html 코드는 return에 들어가면 된다.
-  return <div id="root">root</div>;
+  return <div id="root"></div>;
 }
 
 export default App;

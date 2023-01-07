@@ -1,18 +1,52 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
 
+//자식 컴포넌트 - 스퀘어 하나하나에 대한 컴포넌트
 class Square extends React.Component {
   render() {
-    return <button className="square">{/* TODO */}</button>;
+    return (
+      <button
+        className="square"
+        onClick={() => {
+          this.props.onClick();
+        }}
+      >
+        {this.props.value}
+      </button>
+    );
   }
 }
 
+//부모 컴포넌트
+//스퀘어를 그려주는 자식 컴포넌트를 그리는 함수를 가지고 있고
+//그 함수를 사용해서 실제 스퀘어를 그리고 보드를 완성시킴
 class Board extends React.Component {
-  renderSquare(i) {
-    return <Square />;
+  constructor(props) {
+    super(props);
+    this.state = {
+      squares: Array(9).fill(null),
+    };
   }
 
+  handleClick(i) {
+    const squares = this.state.squares.slice();
+    squares[i] = "X";
+    this.setState({ squares: squares });
+  }
+
+  //컴포넌트 안에서 renderSquare라는 함수를 선언해서 사용함.
+  renderSquare(i) {
+    return (
+      <Square
+        value={this.state.squares[i]}
+        onClick={() => this.handleClick(i)}
+      />
+    );
+    // value를 라는 이름으로 자식 컴포넌트에 props를 전달했다.
+  }
+
+  // render라는 함수
   render() {
     const status = "Next player: X";
 
@@ -20,6 +54,7 @@ class Board extends React.Component {
       <div>
         <div className="status">{status}</div>
         <div className="board-row">
+          {/* 컴포넌트 안에 있는 함수를 사용해서 props를 전달해준다 */}
           {this.renderSquare(0)}
           {this.renderSquare(1)}
           {this.renderSquare(2)}
